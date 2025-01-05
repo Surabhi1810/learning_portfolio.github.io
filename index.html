@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surabhi's Learning Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h3>Hi, I am Surabhi!</h3>
+            <p>I am passionate about technology and problem solving. Here's a glimpse of my work:</p>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="showSection('portfolio')">My Portfolio</button>
+            <button class="nav-button" onclick="showSection('theory')">Theory Reflections</button>
+            <button class="nav-button" onclick="showSection('lab')">Lab Reflections</button>
+        </div>
+
+        <div id="portfolio" class="portfolio-content active">
+            <div class="section projects">
+                <h2>🛠 Projects</h2>
+                <ul>
+                    <li><strong>Project 1</strong>: Engineering Exploration - Paper cutting machine</li>
+                    <li><strong>Project 2</strong>: Design thinking for social innovation - Lack of importance of education among parents</li>
+                    <li><strong>Project 3</strong>: Waste water management - Innovative solutions for urban water management in Mumbai, focusing on sustainable practices and efficient distribution systems</li>
+                </ul>
+            </div>
+
+            <div class="section skills">
+                <h2>🚀 Skills</h2>
+                <ul>
+                    <li>C Programming, C++, Python</li>
+                    <li>Data Structures and Algorithms</li>
+                </ul>
+            </div>
+
+            <div class="section social-links">
+                <h2>🌐 Find Me Online</h2>
+                <ul>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/Surabhi1810" target="_blank">github.com/Surabhi1810</a></li>
+                    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/surabhi-petkar-3aa855343/" target="_blank">linkedin.com/in/surabhi-petkar</a></li>
+                </ul>
+            </div>
+
+            <div class="course-info">
+                <h2>Portfolio Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Course Name:</span>
+                        <span class="value">Design and Analysis of Algorithms</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Course Code:</span>
+                        <span class="value">24ECAC203</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Name:</span>
+                        <span class="value">Surabhi V P</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">SRN:</span>
+                        <span class="value">01FE23BCI109</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Course Instructor:</span>
+                        <span class="value">K M M Rajashekharaiah</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">University:</span>
+                        <span class="value">KLE Technological University, Hubballi</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Portfolio Topic/Domain:</span>
+                        <span class="value">Learning Portfolio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="theory" class="portfolio-content">
+            <h2>Theory Reflections</h2>
+            <p>Content for theory reflections will go here.</p>
+        </div>
+
+        <div id="lab" class="portfolio-content">
+            <h2>Lab Reflections</h2>
+            <p>Content for lab reflections will go here.</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.portfolio-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
