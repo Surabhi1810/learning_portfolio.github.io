@@ -13,13 +13,7 @@
             <p>I am passionate about technology and problem solving. Here's a glimpse of my work:</p>
         </div>
 
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="showSection('portfolio')">My Portfolio</button>
-            <button class="nav-button" onclick="showSection('theory')">Theory Reflections</button>
-            <button class="nav-button" onclick="showSection('lab')">Lab Reflections</button>
-        </div>
-
-        <div id="portfolio" class="portfolio-content active">
+        <div class="portfolio-section">
             <div class="section projects">
                 <h2>🛠 Projects</h2>
                 <ul>
@@ -40,8 +34,8 @@
             <div class="section social-links">
                 <h2>🌐 Find Me Online</h2>
                 <ul>
-                    <li><strong>GitHub:</strong> <a href="https://github.com/Surabhi1810" target="_blank">github.com/Surabhi1810</a></li>
-                    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/surabhi-petkar-3aa855343/" target="_blank">linkedin.com/in/surabhi-petkar</a></li>
+                    <li><a href="https://github.com/Surabhi1810" target="_blank">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/surabhi-petkar-3aa855343/" target="_blank">LinkedIn</a></li>
                 </ul>
             </div>
 
@@ -80,12 +74,17 @@
             </div>
         </div>
 
-        <div id="theory" class="portfolio-content">
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="showSection('theory')">Theory Reflections</button>
+            <button class="nav-button" onclick="showSection('lab')">Lab Reflections</button>
+        </div>
+
+        <div id="theory" class="reflection-content">
             <h2>Theory Reflections</h2>
             <p>Content for theory reflections will go here.</p>
         </div>
 
-        <div id="lab" class="portfolio-content">
+        <div id="lab" class="reflection-content">
             <h2>Lab Reflections</h2>
             <p>Content for lab reflections will go here.</p>
         </div>
@@ -93,7 +92,7 @@
 
     <script>
         function showSection(sectionId) {
-            document.querySelectorAll('.portfolio-content').forEach(section => {
+            document.querySelectorAll('.reflection-content').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
