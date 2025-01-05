@@ -473,6 +473,7 @@ int main() {
 
     return 0;
 }
+</code></pre>
 
 <h17>Challenges in Learning DFS and BFS</h17>
 <p>Difficulty understanding traversal mechanisms and implementation details.
@@ -665,33 +666,34 @@ Refine solutions iteratively through testing and optimization.</p>
 <p>1) What are the challenges in learning, understanding pattern searching methods like Rabin-Karp, Boyer-Moore, Brute Force string match, KMP?
 Learning pattern searching algorithms like brute-force, KMP, Boyer-Moore, and Rabin-Karp presents several challenges. These include grasping the core logic of each algorithm, understanding the pre-processing steps involved in KMP and Boyer-Moore (like building prefix tables or bad character tables), and analyzing their time and space complexities. Implementing these algorithms correctly, especially handling edge cases and boundary conditions, can also be tricky. Furthermore, understanding the trade-offs between these algorithms and choosing the most suitable one for a given scenario requires careful consideration of factors like pattern and text length, and frequency of searches.
 
-In short, the challenges are: understanding each algorithm's logic, mastering pre-processing steps (KMP, Boyer-Moore), analyzing performance, correct implementation (especially edge cases), and choosing the right algorithm for a specific use case.
+In short, the challenges are: understanding each algorithm's logic, mastering pre-processing steps (KMP, Boyer-Moore), analyzing performance, correct implementation (especially edge cases), and choosing the right algorithm for a specific use case.</p>
 
-2) What are the challenges in correlating with real-world applications?
+<p>2) What are the challenges in correlating with real-world applications?
 Applying pattern searching algorithms like Rabin-Karp, Boyer-Moore, brute-force, and KMP to real-world scenarios presents several challenges. These include handling the sheer scale and diverse nature of real-world data, which can be massive and contain various data types. Real-world patterns themselves can be complex, involving variable lengths, wildcards, approximate matches, or the need to search for multiple patterns simultaneously. Meeting stringent performance requirements, especially in applications like search engines or network security, is crucial. The preprocessing overhead of algorithms like KMP and Boyer-Moore, while improving search speed, must be considered, especially for infrequent searches. Memory usage can also be a constraint, particularly in resource-limited environments. Finally, integrating these algorithms with existing systems adds further complexity.
 
-In short, the challenges are: large and diverse data, complex patterns, performance needs, preprocessing cost, memory limits, and system integration.
+In short, the challenges are: large and diverse data, complex patterns, performance needs, preprocessing cost, memory limits, and system integration.</p>
 
-3) How do you determine the most efficient approach/design techniques when solving complex problems?
+<p>3) How do you determine the most efficient approach/design techniques when solving complex problems?
 To determine the most efficient approach for pattern searching with algorithms like Rabin-Karp, Boyer-Moore, brute-force, and KMP, consider these factors:
 
 Pattern and text length: For short patterns and texts, brute-force might be sufficient. For longer ones, KMP, Boyer-Moore, or Rabin-Karp are more efficient.
 Frequency of searches: If you're searching for the same pattern many times in different texts, the preprocessing overhead of KMP or Boyer-Moore becomes worthwhile.
 Alphabet size: Boyer-Moore performs well with larger alphabets.
 Expected matches: If matches are rare, Boyer-Moore tends to be very fast.
-Memory constraints: Brute-force uses minimal memory, while KMP requires some extra space for the prefix table.
-Graph Algorithms
-1) What are the challenges in learning, understanding graph algorithms concepts?
-Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.
+Memory constraints: Brute-force uses minimal memory, while KMP requires some extra space for the prefix table.</p>
+        
+<h34>Graph Algorithms</h34>
+<p>1) What are the challenges in learning, understanding graph algorithms concepts?
+Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.</p>
 
-2) What are the challenges in correlating with real-world applications?
-Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.
+<p>2) What are the challenges in correlating with real-world applications?
+Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.</p>
 
-3) How do you determine the most efficient approach/design techniques when solving complex problems?
+<p>3) How do you determine the most efficient approach/design techniques when solving complex problems?
 Determining the most efficient approach for solving complex problems involving graph algorithms requires a systematic and iterative process. First, clearly define the problem and its constraints. Then, break the problem down into smaller, manageable parts and understand the underlying graph structure. Research and evaluate different algorithms, considering factors like time and space complexity, scalability, and ease of implementation. Use techniques such as divide and conquer, dynamic programming, or greedy algorithms based on the problem requirements. Prototype and test the chosen approach, analyze its performance, and iteratively refine it. Combining theoretical knowledge with practical experimentation ensures an efficient and effective solution.</p>
 
-<h34>Graph Algorithm Implementations</h34>
-<h35>1.Dijkstra’s Algorithm</h35>
+<h35>Graph Algorithm Implementations</h35>
+<h36>1.Dijkstra’s Algorithm</h36>
       <pre><code>
 Dijkstra(G, s) 
 // Dijkstra’s algorithm for single source shortest path 
@@ -716,7 +718,7 @@ for i <- 0 to |V| - 1 do
             Decrease(Q, u, du)
  </code></pre>                           
             
-<h36>2.Floyd’s Algorithm</h36>
+<h37>2.Floyd’s Algorithm</h37>
 <pre><code>
 Floyd(W[1..n, 1..n]) 
 // Implements Floyd’s algorithm for all pair shortest path problem 
@@ -730,7 +732,7 @@ for k <- 1 to n do
 return D
  </code></pre>             
             
-<h37>3. Warshall’s Algorithm</h37>
+<h38>3. Warshall’s Algorithm</h38>
 <pre><code>              
 ALGORITHM Warshall (A[1..n,1..n])
 // Implements Warshall’s algorithm for computing transitive closure
@@ -747,7 +749,7 @@ for k <- 1 to n do
 return R(n)
  </code></pre>             
             
-<h38>4. Kruskal’s Algorithm</h38>
+<h39>4. Kruskal’s Algorithm</h39>
  <pre><code>             
 ALGORITHM Kruskal(G)
 // Kruskal’s algorithm to construct a minimum spanning tree
@@ -768,7 +770,7 @@ while ecounter < |V| - 1 do
 return ET
 </code></pre>          
             
-<h39>5. Prim’s Algorithm</h39>
+<h40>5. Prim’s Algorithm</h40>
  <pre><code>         
 ALGORITHM Prim(G)
 // Prim’s algorithm to construct a minimum spanning tree
@@ -787,7 +789,7 @@ for i <- 1 to |V| - 1 do
 return ET
  </code></pre>     
             
-<h40>6. Bellman-Ford Algorithm</h40>
+<h41>6. Bellman-Ford Algorithm</h41>
  <pre><code>     
 Bellman-Ford Algorithm
 d[s] ← 0
@@ -807,12 +809,12 @@ At the end, d[v] = δ(s, v), if no negative-weight cycles.
    </code></pre>
             
 <p>Challenges in Learning, Understanding Graph Algorithms
-Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.
+Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.</p>
 
-Challenges in Correlating with Real-World Applications
-Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.
+<p>Challenges in Correlating with Real-World Applications
+Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.</p>
 
-Determining the Most Efficient Approach/Design Techniques
+<p>Determining the Most Efficient Approach/Design Techniques
 Determining the most efficient approach for solving complex problems involving graph algorithms requires a systematic and iterative process. First, clearly define the problem and its constraints. Then, break the problem down into smaller, manageable parts and understand the underlying graph structure. Research and evaluate different algorithms, considering factors like time and space complexity, scalability, and ease of implementation. Use techniques such as divide and conquer, dynamic programming, or greedy algorithms based on the problem requirements. Prototype and test the chosen approach, analyze its performance, and iteratively refine it. Combining theoretical knowledge with practical experimentation ensures an efficient and effective solution.</p>
       
     </div>
