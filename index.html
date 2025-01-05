@@ -81,11 +81,26 @@
         </div>
 
         <div id="theory" class="reflection-content">
-            <p>Content for theory reflections will go here.</p>
+            <h2>Theory Reflections</h2>
+            <!-- Theory content from your PDF -->
+            <h3>Course Overview</h3>
+            <p>This course dives deeply into the world of data structures and algorithms, emphasizing their creation, evaluation, and real-world applications in computational and engineering tasks. It integrates principles of mathematics, engineering, and advanced computer science techniques to equip students with the skills needed to analyze and solve a variety of computational problems.</p>
+
+            <h3>What is the Course About?</h3>
+            <p>The curriculum focuses on understanding the fundamental philosophies behind designing efficient algorithms and data structures. Topics include performance analysis methods, computational complexity, and strategies such as recursion, iteration, and backtracking. The course covers a wide array of data structures such as trees, graphs, heaps, and tries, as well as advanced algorithms for sorting, searching, shortest paths, and more.</p>
+
+            <!-- Continue with all theory content... -->
+            [Rest of the theory content from your PDF]
         </div>
 
         <div id="lab" class="reflection-content">
-            <p>Content for lab reflections will go here.</p>
+            <h2>Lab Reflections</h2>
+            <!-- Lab content from your PDF -->
+            <h3>Key Concepts / Things Learned in This Course</h3>
+            <h4>Time Complexity Analysis</h4>
+            <h5>Task 1</h5>
+            <!-- Continue with all lab content... -->
+            [Rest of the lab content from your PDF]
         </div>
     </div>
 
@@ -95,6 +110,14 @@
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
+            
+            // Update button states
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.toLowerCase().includes(sectionId)) {
+                    button.classList.add('active');
+                }
+            });
         }
     </script>
 </body>
