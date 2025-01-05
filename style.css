@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     background-color: var(--card-background);
     padding: 40px;
@@ -33,6 +33,7 @@ body {
     background-color: var(--primary-color);
     color: white;
     border-radius: 10px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .intro h3 {
@@ -52,13 +53,12 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 60px;
-    margin-bottom: 40px;
+    margin: 40px 0;
     flex-wrap: wrap;
 }
 
 .nav-button {
-    padding: 12px 28px;
+    padding: 15px 30px;
     background-color: var(--secondary-color);
     color: white;
     border: none;
@@ -68,6 +68,11 @@ body {
     font-size: 16px;
     font-weight: 500;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button.active {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 .nav-button:hover {
@@ -87,32 +92,40 @@ body {
 .reflection-content {
     display: none;
     animation: fadeIn 0.5s ease-in-out;
-    padding: 20px;
+    padding: 30px;
     background-color: #f8f9fa;
     border-radius: 10px;
     margin-top: 20px;
+    border: 1px solid #e9ecef;
+    line-height: 1.8;
 }
 
 .reflection-content.active {
     display: block;
 }
 
-h2 {
+.reflection-content h2,
+.reflection-content h3,
+.reflection-content h4,
+.reflection-content h5 {
     color: var(--primary-color);
-    border-bottom: 3px solid var(--light-accent);
-    padding-bottom: 10px;
-    margin-top: 0;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    border-bottom: 2px solid var(--light-accent);
+    padding-bottom: 0.3em;
 }
 
-.social-links a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    font-weight: bold;
+.reflection-content p {
+    margin-bottom: 1.2em;
 }
 
-.social-links a:hover {
-    color: var(--light-accent);
+.reflection-content ul {
+    padding-left: 20px;
+    margin-bottom: 1.2em;
+}
+
+.reflection-content li {
+    margin-bottom: 0.8em;
 }
 
 .course-info {
@@ -163,6 +176,21 @@ li:before {
     left: 0;
 }
 
+pre, code {
+    background-color: #f1f1f1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+}
+
+pre {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #e9ecef;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -178,12 +206,16 @@ li:before {
     .container {
         padding: 20px;
     }
+    
+    .nav-button {
+        width: 100%;
+    }
+
+    .reflection-content {
+        padding: 15px;
+    }
 
     .info-item {
         grid-template-columns: 1fr;
-    }
-
-    .nav-button {
-        width: 100%;
     }
 }
