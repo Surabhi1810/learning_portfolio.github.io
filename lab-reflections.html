@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Reflections</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lab Reflections</h1>
+      <h2>Key concepts i learned in this course</h2>
+      
+      <h3>time complexity analysis</h3>
+      <p>Task 1
+Write a recursive C++ program for the Towers of Brahma problem and record the time taken for given input sizes. Use a spreadsheet application and plot a graph presenting your results.</p>
+
+<pre><code>
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+void towers(int n, string from, string to, string aux) {
+    if (n == 1) {
+        cout << "Move disc 1 from " << from << " to " << to << endl;
+        return;
+    }
+    towers(n-1, from, aux, to);
+    cout << "Move disc " << n << " from " << from << " to " << to << endl;
+    towers(n-1, aux, to, from);
+}
+
+int main() {
+    int n;
+    string A = "A", B = "B", C = "C";
+    cin >> n;
+
+    clock_t start = clock();
+    towers(n, A, C, B);
+    clock_t end = clock();
+    double elapsed = double(end - start) / CLOCKS_PER_SEC;
+    cout << "Time taken for execution: " << elapsed << " seconds" << endl;
+    return 0;
+}
+</code></pre>
+
+<p>Task 2
+Compare and present the orders of growth of linear search and binary search for best-case, worst-case, and average-case inputs. Use the rand() function to generate random array inputs between size 0 to 1000. Present results using graphs.</p>
+    
+<pre><code>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <algorithm>
+using namespace std;
+
+#define SIZE 50000
+#define ITER 10000
+
+int linear_search(int a[SIZE], int target) {
+    for (int i = 0; i < SIZE; i++) {
+        if (a[i] == target) return i;
+    }
+    return -1;
+}
+
+int binary_search(int a[SIZE], int target) {
+    int low = 0, high = SIZE - 1, mid;
+    while (low <= high) {
+        mid = (low + high) / 2;
+        if (a[mid] == target) return mid;
+        if (target > a[mid]) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int a[SIZE], target;
+    srand(78);
+
+    for (int i = 0; i < SIZE; i++) {
+        a[i] = rand() % SIZE;
+    }
+
+    cout << "Enter the target number to search: ";
+    cin >> target;
+
+    clock_t start = clock();
+    for (int i = 0; i < ITER; i++) {
+        linear_search(a, target);
+    }
+    clock_t end = clock();
+    double linearTime = double(end - start) / (CLOCKS_PER_SEC * ITER);
+    cout << "Linear Search Time (average per iteration): " << linearTime << " seconds" << endl;
+
+    sort(a, a + SIZE);
+
+    start = clock();
+    for (int i = 0; i < ITER; i++) {
+        binary_search(a, target);
+    }
+    end = clock();
+    double binaryTime = double(end - start) / (CLOCKS_PER_SEC * ITER);
+    cout << "Binary Search Time (average per iteration): " << binaryTime << " seconds" << endl;
+
+    return 0;
+}
+</code></pre>
+      
+<h4>DAA Concepts and Examples</h4>
+<h5>Length of String</h5>
+      
+<pre><code>
+#include <stdio.h>
+#include <time.h>
+
+// Function to calculate the length of the string recursively
+int getlength(char *str, int length) {
+    if(*str != ''){
+        length++;
+        str++;
+        return getlength(str, length);
+    }
+    return length;
+}
+
+int main() {
+    char str[100];
+    int length = 0;
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    // Start measuring time
+    clock_t start = clock();
+
+    // Calculate the length of the string
+    length = getlength(str, length);
+
+    // Stop measuring time
+    clock_t end = clock();
+    double elapsed = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    // Print the result
+    printf("The length is %d
+", length);
+    printf("Time taken for execution: %f seconds
+", elapsed);
+
+    return 0;
+}
+</code></pre>
+      
+<h6>Challenges in Learning</h6>
+<p>Understanding time complexity of algorithms like Tower of Hanoi, linear and binary search, and string length calculations.
+Strong mathematical foundations and abstract nature of theoretical concepts.</p>
+
+<h7>Challenges in Correlating with Real-World Applications</h7>
+<p>Adapting algorithms to handle real-world data and constraints.
+Bridging the gap between abstract ideas and practical use.</p>
+
+<h8>Determining Efficient Approaches</h8>
+<p>Clearly define the problem and break it down into smaller parts.
+Research existing solutions and iteratively test and refine the approach.</p>
+
+<h9>Binary Search Tree</h9>
+<pre><code>
+  #include <iostream>
+#include <cstdlib>
+using namespace std;
+
+struct tree {
+    int data;
+    struct tree* left;
+    struct tree* right;
+};
+
+typedef struct tree TREE;
+
+class Binarysearchtree {
+public:
+    TREE* insert_into_bst(TREE*, int);
+    void inorder(TREE*);
+    void preorder(TREE*);
+    void postorder(TREE*);
+    TREE* delete_from_bst(TREE*, int);
+};
+
+TREE* Binarysearchtree::insert_into_bst(TREE* root, int data) {
+    TREE* newnode = (TREE*)malloc(sizeof(TREE));
+    if (newnode == NULL) {
+        cout << "Memory allocation failed" << endl;
+        return root;
+    }
+    newnode->data = data;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    if (root == NULL) {
+        root = newnode;
+        cout << "Root node inserted into tree" << endl;
+        return root;
+    }
+    TREE* curnode = root;
+    TREE* parent = NULL;
+    while (curnode != NULL) {
+        parent = curnode;
+        if (newnode->data < curnode->data) {
+            curnode = curnode->left;
+        } else {
+            curnode = curnode->right;
+        }
+    }
+    if (newnode->data < parent->data) {
+        parent->left = newnode;
+    } else {
+        parent->right = newnode;
+    }
+    cout << "Node inserted successfully into the tree" << endl;
+    return root;
+}
+
+// Inorder Traversal
+void Binarysearchtree::inorder(TREE* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        cout << root->data << "	";
+        inorder(root->right);
+    }
+}
+
+// Preorder Traversal
+void Binarysearchtree::preorder(TREE* root) {
+    if (root != NULL) {
+        cout << root->data << "	";
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+// Postorder Traversal
+void Binarysearchtree::postorder(TREE* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->data << "	";
+    }
+}
+
+// Delete Node
+TREE* Binarysearchtree::delete_from_bst(TREE* root, int data) {
+    TREE* curnode = root;
+    TREE* parent = NULL;
+    TREE* successor = NULL;
+    TREE* p = NULL;
+
+    if (root == NULL) {
+        cout << "TREE is empty" << endl;
+        return root;
+    }
+
+    while (curnode != NULL && curnode->data != data) {
+        parent = curnode;
+        if (data < curnode->data) {
+            curnode = curnode->left;
+        } else {
+            curnode = curnode->right;
+        }
+    }
+
+    if (curnode == NULL) {
+        cout << "Item not found" << endl;
+        return root;
+    }
+
+    if (curnode->left == NULL) {
+        p = curnode->right;
+    } else if (curnode->right == NULL) {
+        p = curnode->left;
+    } else {
+        successor = curnode->right;
+        while (successor->left != NULL) {
+            successor = successor->left;
+        }
+        successor->left = curnode->left;
+        p = curnode->right;
+    }
+    if (parent == NULL) {
+        free(curnode);
+        return p;
+    }
+
+    if (curnode == parent->left) {
+        parent->left = p;
+    } else {
+        parent->right = p;
+    }
+    free(curnode);
+    return root;
+}
+
+int main() {
+    Binarysearchtree bst;
+    TREE* root = NULL;
+    int choice = 0, data = 0;
+    while (1) {
+        cout << "
+*MENU
+";
+        cout << "1-Insert into BST
+";
+        cout << "2-Inorder Traversal
+";
+        cout << "3-Preorder Traversal
+";
+        cout << "4-Postorder Traversal
+";
+        cout << "5-Delete from BST
+";
+        cout << "Any other option to exit
+";
+        cout << "*
+";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cout << "Enter the item to insert: ";
+                cin >> data;
+                root = bst.insert_into_bst(root, data);
+                break;
+            case 2:
+                if (root == NULL) {
+                    cout << "Tree is empty
+";
+                } else {
+                    cout << "Inorder traversal is..
+";
+                    bst.inorder(root);
+                }
+                break;
+            case 3:
+                if (root == NULL) {
+                    cout << "Tree is empty
+";
+                } else {
+                    cout << "Preorder traversal is..
+";
+                    bst.preorder(root);
+                }
+                break;
+            case 4:
+                if (root == NULL) {
+                    cout << "Tree is empty
+";
+                } else {
+                    cout << "Postorder traversal is..
+";
+                    bst.postorder(root);
+                }
+                break;
+            case 5:
+                cout << "Enter the item to be deleted: ";
+                cin >> data;
+                root = bst.delete_from_bst(root, data);
+                break;
+            default:
+                cout << "Exiting code:
+";
+                exit(0);
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+<h10>Challenges in Learning</h10>
+<p>Understanding hierarchical structure and recursive operations in binary search trees.
+Handling edge cases like duplicate keys or node deletions.</p>
+
+<h11>Challenges in Correlating with Real-World Applications</h11>
+<p>Identifying use cases and performance trade-offs in dynamic scenarios.
+Maintaining balanced structures for efficiency.</p>
+
+<h12>Determining Efficient Approaches</h12>
+<p>Analyze problem requirements and compare with alternatives like hash tables or balanced trees.
+Test with real-world data and evaluate complexity.</p>
+
+<h13>DAA Concepts and Examples</h13>
+<h14>Depth-First Search (DFS) and Breadth-First Search (BFS)</h14>
+                  
+<h15>DFS Code</h15>
+<pre><code>
+  #include <iostream>
+using namespace std;
+
+int v = 5;
+int m[10][10] = {{0,1,1,0,0}, {1,0,0,1,1},
+        {1,0,0,0,1}, {0,1,0,0,0}, {0,1,1,0,0}};
+int visited[10];
+
+void dfs(int m[10][10], int v, int source) {
+    visited[source] = 1;
+    for (int i = 0; i < v; i++) {
+        if (m[source][i] == 1 && visited[i] == 0) {
+            cout << i << "	";
+            dfs(m, v, i);
+        }
+    }
+}
+int main() {
+    int source;
+    for (int i = 0; i < v; i++)
+        visited[i] = 0;
+
+    cout << "Enter the source vertex: ";
+    cin >> source;
+
+    cout << "The DFS Traversal is... 
+";
+    cout << source << "	";
+    dfs(m, v, source);
+
+    return 0;
+}
+</code></pre>
+
+<h16>BFS Code</h16>
+<pre><code>
+</code></pre>
+#include <iostream>
+using namespace std;
+
+void bfs(int m[10][10], int v, int source) {
+    int queue[20];
+    int front = 0, rear = 0, u, i;
+    int visited[10];
+
+    for (i = 0; i < v; i++)
+        visited[i] = 0;
+
+    queue[rear] = source;
+    visited[source] = 1;
+
+    cout << "The BFS Traversal is... 
+";
+
+    while (front <= rear) {
+        u = queue[front];
+        cout << u << "	";
+        front++;
+
+        for (i = 0; i < v; i++) {
+            if (m[u][i] == 1 && visited[i] == 0) {
+                visited[i] = 1;
+                rear++;
+                queue[rear] = i;
+            }
+        }
+    }
+}
+
+int main() {
+    int v = 5;
+    int m[10][10] = {{0,1,1,0,0}, {1,0,0,1,1},
+        {1,0,0,0,1}, {0,1,0,0,0}, {0,1,1,0,0}};
+
+    int source;
+    cout << "Enter the source vertex: ";
+    cin >> source;
+
+    bfs(m, v, source);
+
+    return 0;
+}
+
+<h17>Challenges in Learning DFS and BFS</h17>
+<p>Difficulty understanding traversal mechanisms and implementation details.
+Managing data structures like stacks (DFS) or queues (BFS).
+Handling edge cases like cycles and disconnected graphs.</p>
+<h18>Challenges in Correlating DFS and BFS with Real-World Applications</h18>
+<p>Mapping abstract nodes and edges to real-world entities like cities or networks.
+Choosing the appropriate graph representation for a given scenario.</p>
+
+<h19>HEAP</h19>
+<pre><code>
+  #include <iostream>
+#include <vector>
+using namespace std;
+
+void Heapify(vector<int>& H, int i, int n) {
+    int v;
+    for (int i = n / 2; i >= 1; i--) {
+        v = H[i];
+        bool heap = false;
+
+        while (!heap && 2 * i <= n) {
+            int j = 2 * i;
+
+            if (j < n && H[j] < H[j + 1]) {
+                j = j + 1;
+            }
+            if (v >= H[j]) {
+                heap = true;
+            } else {
+                H[i] = H[j];
+                i = j;
+            }
+        }
+        H[i] = v;
+    }
+}
+
+int main() {
+    vector<int> H = {7, 6, 17, 11, 64, 29, 6, 12, 2};
+    for (int i = 1; i < H.size(); i++) {
+        cout << H[i] << " ";
+    }
+    cout << "
+";
+    int n = H.size();
+    int i;
+    Heapify(H, i, n);
+    cout << "After heapification
+";
+    for (int i = 1; i < H.size(); i++) {
+        cout << H[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}
+</code></pre>
+
+<h20>Challenges in Learning Heaps</h20>
+      <p>Visualizing binary tree structure when implemented using arrays.
+Understanding and maintaining the "heap property" during insertion and deletion.</p>
+<h21>Challenges in Correlating Heaps with Real-World Applications</h21>
+      <p>Identifying scenarios where heaps are optimal, such as priority queues or shortest path algorithms.
+Adapting heap implementations for large-scale systems or specific use cases.</p>
+
+<h22>DAA Concepts and Examples</h22>
+<h23>Sorting Algorithms</h23>
+<h24></h24>Bubble Sort</h24>
+      <pre><code>
+ALGORITHM BubbleSort(A[0..n-1])
+// Sorts a given array using bubble sort
+// Input: An array A[0..n-1] of orderable elements
+// Output: Array A[0..n-1] sorted in ascending order
+for i <- 0 to n - 2 do
+    for j <- 0 to n - 2 - i do
+        if A[j+1] < A[j]
+            swap A[j] and A[j+1]
+</code></pre>
+        
+<h25>Selection Sort</h25>
+      <pre><code>          
+ALGORITHM SelectionSort(A[0..n-1])
+// Sorts a given array using selection sort
+// Input: An array A[0..n-1] of orderable elements
+// Output: Array A[0..n-1] sorted in ascending order
+for i <- 0 to n - 2 do
+    min <- i
+    for j <- i + 1 to n - 1 do
+        if A[j] < A[min]
+            min <- j
+    swap A[i] and A[min]
+</code></pre>
+              
+        
+<h26>Insertion Sort</h26>
+      <pre><code>          
+ALGORITHM InsertionSort(A[0..n-1])
+// Sorts a given array using insertion sort
+// Input: An array A[0..n-1] of orderable elements
+// Output: Array A[0..n-1] sorted in ascending order
+for i <- 1 to n - 1 do
+    v <- A[i]
+    j <- i - 1
+    while j >= 0 and A[j] > v do
+        A[j + 1] <- A[j]
+        j <- j - 1
+    A[j + 1] <- v
+</code></pre>
+
+        
+<h27>Merge Sort</h27>
+ <pre><code>       
+ALGORITHM MergeSort(A[0..n-1])
+// Sorts a given A[0..n-1] by recursive mergesort
+// Input: An array A[0..n-1] of orderable elements
+// Output: Array A[0..n-1] sorted in nondecreasing order
+if n > 1
+    copy A[0...|n/2| - 1] to B[0...|n/2| - 1]
+    copy A[|n/2|...n - 1] to C[0...|^n/2^| - 1]
+    MergeSort(B[0...|n/2| - 1])
+    MergeSort(C[0...|^n/2^| - 1])
+    Merge(B, C, A)
+   
+
+ALGORITHM Merge(B[0...p-1], C[0...q-1], A[0...p+q-1])
+// Merges two sorted arrays into one sorted array
+// Input: Arrays B[0...p-1] and C[0...q-1] both sorted
+// Output: Sorted array A[0...p+q-1] of the elements of B and C
+i <- 0
+j <- 0
+k <- 0
+while i < p and j < q do
+    if B[i] <= C[j]
+        A[k] <- B[i]
+        i <- i + 1
+    else
+        A[k] <- C[j]
+        j <- j + 1
+    k <- k + 1
+if i = p
+    copy C[j...q - 1] to A[k...p + q - 1]
+else
+    copy B[i...p - 1] to A[k...p + q - 1]
+</code></pre>
+        
+<h28>Quick Sort</h28>
+<pre><code>  
+ALGORITHM QuickSort(A[l...r])
+// Sorts a subarray by quicksort
+// Input: A subarray A[l...r] of A[0...n-1], defined by its left and right indices l and r
+// Output: Subarray A[l...r] sorted in nondecreasing order
+if l < r
+    s <- Partition(A[l...r])
+    QuickSort(A[l...s - 1])
+    QuickSort(A[s + 1...r])
+
+ALGORITHM Partition(A[l...r])
+// Partitions a subarray by using its first element as a pivot
+// Input: A subarray A[l...r] of A[0...n-1], defined by its left and right indices l and r (l < r)
+// Output: Subarray A[l...r], with split position returned as this functions value
+p <- A[l]
+i <- l
+j <- r + 1
+repeat
+    repeat i <- i + 1 until A[i] >= p
+    repeat j <- j - 1 until A[j] <= p
+    swap(A[i] and A[j])
+until i >= j
+swap (A[i], A[j])
+swap (A[l], A[j])
+return j
+</code></pre>
+      
+<h29>Challenges in Learning Sorting Algorithms</h29>
+<p>Understanding the mechanisms of each algorithm.
+Determining time and space complexities for different scenarios.
+Implementing algorithms without errors and debugging code.</p>
+<h30>Challenges in Correlating with Real-World Applications</h30>
+<p>Handling messy and dynamic data sets effectively.
+Choosing appropriate algorithms based on specific requirements like stability and memory constraints.
+Integrating sorting efficiently into larger systems.</p>
+<h31>Design Techniques for Solving Complex Problems</h31>
+<p>Understand the problem thoroughly and break it into smaller parts.
+Analyze different approaches and their trade-offs in terms of time and space complexity.
+Choose the most suitable data structures and algorithms based on the constraints.
+Refine solutions iteratively through testing and optimization.</p>
+      
+<h32>Pattern Searching and Graph Algorithms</h32>
+<h33>Pattern Searching Algorithms</h33>
+<p>1) What are the challenges in learning, understanding pattern searching methods like Rabin-Karp, Boyer-Moore, Brute Force string match, KMP?
+Learning pattern searching algorithms like brute-force, KMP, Boyer-Moore, and Rabin-Karp presents several challenges. These include grasping the core logic of each algorithm, understanding the pre-processing steps involved in KMP and Boyer-Moore (like building prefix tables or bad character tables), and analyzing their time and space complexities. Implementing these algorithms correctly, especially handling edge cases and boundary conditions, can also be tricky. Furthermore, understanding the trade-offs between these algorithms and choosing the most suitable one for a given scenario requires careful consideration of factors like pattern and text length, and frequency of searches.
+
+In short, the challenges are: understanding each algorithm's logic, mastering pre-processing steps (KMP, Boyer-Moore), analyzing performance, correct implementation (especially edge cases), and choosing the right algorithm for a specific use case.
+
+2) What are the challenges in correlating with real-world applications?
+Applying pattern searching algorithms like Rabin-Karp, Boyer-Moore, brute-force, and KMP to real-world scenarios presents several challenges. These include handling the sheer scale and diverse nature of real-world data, which can be massive and contain various data types. Real-world patterns themselves can be complex, involving variable lengths, wildcards, approximate matches, or the need to search for multiple patterns simultaneously. Meeting stringent performance requirements, especially in applications like search engines or network security, is crucial. The preprocessing overhead of algorithms like KMP and Boyer-Moore, while improving search speed, must be considered, especially for infrequent searches. Memory usage can also be a constraint, particularly in resource-limited environments. Finally, integrating these algorithms with existing systems adds further complexity.
+
+In short, the challenges are: large and diverse data, complex patterns, performance needs, preprocessing cost, memory limits, and system integration.
+
+3) How do you determine the most efficient approach/design techniques when solving complex problems?
+To determine the most efficient approach for pattern searching with algorithms like Rabin-Karp, Boyer-Moore, brute-force, and KMP, consider these factors:
+
+Pattern and text length: For short patterns and texts, brute-force might be sufficient. For longer ones, KMP, Boyer-Moore, or Rabin-Karp are more efficient.
+Frequency of searches: If you're searching for the same pattern many times in different texts, the preprocessing overhead of KMP or Boyer-Moore becomes worthwhile.
+Alphabet size: Boyer-Moore performs well with larger alphabets.
+Expected matches: If matches are rare, Boyer-Moore tends to be very fast.
+Memory constraints: Brute-force uses minimal memory, while KMP requires some extra space for the prefix table.
+Graph Algorithms
+1) What are the challenges in learning, understanding graph algorithms concepts?
+Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.
+
+2) What are the challenges in correlating with real-world applications?
+Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.
+
+3) How do you determine the most efficient approach/design techniques when solving complex problems?
+Determining the most efficient approach for solving complex problems involving graph algorithms requires a systematic and iterative process. First, clearly define the problem and its constraints. Then, break the problem down into smaller, manageable parts and understand the underlying graph structure. Research and evaluate different algorithms, considering factors like time and space complexity, scalability, and ease of implementation. Use techniques such as divide and conquer, dynamic programming, or greedy algorithms based on the problem requirements. Prototype and test the chosen approach, analyze its performance, and iteratively refine it. Combining theoretical knowledge with practical experimentation ensures an efficient and effective solution.</p>
+
+<h34>Graph Algorithm Implementations</h34>
+<h35>1.Dijkstra’s Algorithm</h35>
+      <pre><code>
+Dijkstra(G, s) 
+// Dijkstra’s algorithm for single source shortest path 
+// Input: A weighted connected graph G(V, E) with non-negative weights and its vertex s 
+// Output: the length dv of a shortest path from s to v and its penultimate vertex pv for 
+// every vertex v in V 
+Initialize(Q) // Initialize vertex priority queue to empty 
+for every vertex v in V do 
+    dv <- ∞ 
+    pv <- null 
+    Insert(Q, v, dv) // Initialize vertex priority in priority queue 
+ds <- 0 
+Decrease(Q, s, ds) // Update priority of s with ds 
+VT <- Ø 
+for i <- 0 to |V| - 1 do 
+    u* <- DeleteMin(Q) 
+    VT = VT U {u*} 
+    for every vertex u in V – VT that is adjacent to u* do 
+        if du* + w(u*, u) < du 
+            du <- du* + w(u*, u) 
+            pu <- u* 
+            Decrease(Q, u, du)
+ </code></pre>                           
+            
+<h36>2.Floyd’s Algorithm</h36>
+<pre><code>
+Floyd(W[1..n, 1..n]) 
+// Implements Floyd’s algorithm for all pair shortest path problem 
+// Input: The weight matrix W of the graph with no negative length cycle 
+// Output: The distance matrix of the shortest path’s lengths 
+D <- W 
+for k <- 1 to n do 
+    for i <- 1 to n do 
+        for j <- 1 to n do 
+            D[i, j] <- min {D[i, j], D[i, k] + D[k, j]} 
+return D
+ </code></pre>             
+            
+<h37>3. Warshall’s Algorithm</h37>
+<pre><code>              
+ALGORITHM Warshall (A[1..n,1..n])
+// Implements Warshall’s algorithm for computing transitive closure
+
+// Input: The adjacency matrix A of a digraph with n vertices
+
+// Output: The transitive closure of the digraph
+
+R(0) <- A
+for k <- 1 to n do
+    for i <- 1 to n do
+        for j <- 1 to n do
+            R(k)[i, j] <- R(k-1)[i, j] or (R(k-1)[i, k] and R(k-1)[k, j])
+return R(n)
+ </code></pre>             
+            
+<h38>4. Kruskal’s Algorithm</h38>
+ <pre><code>             
+ALGORITHM Kruskal(G)
+// Kruskal’s algorithm to construct a minimum spanning tree
+
+// Input: A weighted connected graph G(V, E)
+
+// Output: ET, the set of edges composing of MST of G
+
+sort E in nondecreasing order of the edge weights w(ei1) <= … <= w(ei|E|)
+ET <- Ø
+ecounter <- 0
+k <- 0
+while ecounter < |V| - 1 do
+    k <- k + 1
+    if ET U {eik} is acyclic
+        ET <- ET U {eik}
+        ecounter <- ecounter + 1
+return ET
+</code></pre>          
+            
+<h39>5. Prim’s Algorithm</h39>
+ <pre><code>         
+ALGORITHM Prim(G)
+// Prim’s algorithm to construct a minimum spanning tree
+
+// Input: A weighted connected graph G(V, E)
+
+// Output: ET, the set of edges composing of MST of G
+
+VT <- {v0}
+ET <- Ø
+for i <- 1 to |V| - 1 do
+    find a minimum weight edge e* = (v*, u*) along all the edges (v, u) such that
+        v is in VT and u is in V - VT
+    VT <- VT U {u*}
+    ET <- ET U {e*}
+return ET
+ </code></pre>     
+            
+<h40>6. Bellman-Ford Algorithm</h40>
+ <pre><code>     
+Bellman-Ford Algorithm
+d[s] ← 0
+for each v ∈ V − {s}
+    do d[v] ← ∞  // initialization
+
+for i ← 1 to |V| − 1
+    do for each edge (u, v) ∈ E
+        do if d[v] > d[u] + w(u, v)
+            then d[v] ← d[u] + w(u, v)  // relaxation step
+
+for each edge (u, v) ∈ E
+    do if d[v] > d[u] + w(u, v)
+        then report that a negative-weight cycle exists
+
+At the end, d[v] = δ(s, v), if no negative-weight cycles.
+   </code></pre>
+            
+<p>Challenges in Learning, Understanding Graph Algorithms
+Understanding graph algorithms poses challenges due to their complex structures and the need for a strong foundation in discrete mathematics and graph theory. The diverse range of algorithms, like Dijkstra's, Bellman-Ford, and Kruskal's, each come with unique applications and complexities. Additionally, analyzing their efficiency and translating theoretical concepts into real-world applications can be daunting. Handling edge cases, such as disconnected graphs or negative weights, further adds to the complexity.
+
+Challenges in Correlating with Real-World Applications
+Correlating graph algorithms with real-world applications can be challenging due to the complexity and variability of real-world data, which often differs significantly from the clean, structured data used in academic examples. Additionally, real-world scenarios may involve dynamic and large-scale graphs, requiring efficient handling of data updates and optimizations that aren't as straightforward. Moreover, practical constraints such as computational resources, time limits, and data quality can further complicate the direct application of theoretical algorithms, necessitating customized solutions and adaptations.
+
+Determining the Most Efficient Approach/Design Techniques
+Determining the most efficient approach for solving complex problems involving graph algorithms requires a systematic and iterative process. First, clearly define the problem and its constraints. Then, break the problem down into smaller, manageable parts and understand the underlying graph structure. Research and evaluate different algorithms, considering factors like time and space complexity, scalability, and ease of implementation. Use techniques such as divide and conquer, dynamic programming, or greedy algorithms based on the problem requirements. Prototype and test the chosen approach, analyze its performance, and iteratively refine it. Combining theoretical knowledge with practical experimentation ensures an efficient and effective solution.</p>
+      
+    </div>
+</body>
+</html>
